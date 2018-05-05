@@ -565,10 +565,12 @@ void UpdateTexture(Texture2D texture, const void *pixels)
 // Export image as a PNG file
 void ExportImage(const char *fileName, Image image)
 {
-    // NOTE: Getting Color array as RGBA unsigned char values
-    unsigned char *imgData = (unsigned char *)GetImageData(image);
-    SavePNG(fileName, imgData, image.width, image.height, 4);
-    free(imgData);
+    #if defined(PLATFORM_DESKTOP) || defined(PLATFORM_RPI)
+        // NOTE: Getting Color array as RGBA unsigned char values
+        unsigned char *imgData = (unsigned char *)GetImageData(image);
+        SavePNG(fileName, imgData, image.width, image.height, 4);
+        free(imgData);
+    #endif    
 }
 
 // Copy an image to a new image
