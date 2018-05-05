@@ -150,14 +150,17 @@ ifeq ($(PLATFORM_OS),OSX)
 endif
 
 ifeq ($(PLATFORM),PLATFORM_WEB)
-    # Emscripten required variables
-    EMSDK_PATH = C:/emsdk
-    EMSCRIPTEN_VERSION = 1.37.28
-    CLANG_VERSION=e1.37.28_64bit
-    PYTHON_VERSION=2.7.5.3_64bit
-    NODE_VERSION=4.1.1_64bit
-    export PATH=$(EMSDK_PATH);$(EMSDK_PATH)\clang\$(CLANG_VERSION);$(EMSDK_PATH)\node\$(NODE_VERSION)\bin;$(EMSDK_PATH)\python\$(PYTHON_VERSION);$(EMSDK_PATH)\emscripten\$(EMSCRIPTEN_VERSION);C:\raylib\MinGW\bin:$$(PATH)
-    EMSCRIPTEN=$(EMSDK_PATH)\emscripten\$(EMSCRIPTEN_VERSION)
+    # # Emscripten required variables
+    # EMSDK_PATH = C:/emsdk
+    # EMSCRIPTEN_VERSION = 1.37.28
+    # CLANG_VERSION=e1.37.28_64bit
+    # PYTHON_VERSION=2.7.5.3_64bit
+    # NODE_VERSION=4.1.1_64bit
+    # export PATH=$(EMSDK_PATH);$(EMSDK_PATH)\clang\$(CLANG_VERSION);$(EMSDK_PATH)\node\$(NODE_VERSION)\bin;$(EMSDK_PATH)\python\$(PYTHON_VERSION);$(EMSDK_PATH)\emscripten\$(EMSCRIPTEN_VERSION);C:\raylib\MinGW\bin:$$(PATH)
+    # EMSCRIPTEN=$(EMSDK_PATH)\emscripten\$(EMSCRIPTEN_VERSION)
+
+    # /Users/enaml/.pyenv/shims/python
+
 endif
 
 ifeq ($(PLATFORM),PLATFORM_ANDROID)
@@ -247,7 +250,9 @@ ifeq ($(PLATFORM),PLATFORM_RPI)
 endif
 ifeq ($(PLATFORM),PLATFORM_WEB)
     # HTML5 emscripten compiler
-    CC = emcc
+    # CC = emcc
+    CC = /Users/enaml/Projects/tests/emsdk/emscripten/1.37.39/emcc
+
 endif
 ifeq ($(PLATFORM),PLATFORM_ANDROID)
     # Android toolchain (must be provided for desired architecture and compiler)
@@ -441,7 +446,7 @@ endif
 raylib: $(OBJS)
 ifeq ($(PLATFORM),PLATFORM_WEB)
     # Compile raylib for web.
-	emcc -O1 $(OBJS) -o $(RAYLIB_RELEASE_PATH)/libraylib.bc
+	$(CC) -O1 $(OBJS) -o $(RAYLIB_RELEASE_PATH)/libraylib.bc
 	@echo "raylib library generated (libraylib.bc)!"
 else
     ifeq ($(RAYLIB_LIBTYPE),SHARED)
